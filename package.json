@@ -9,12 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/mongoose": "^5.11.97",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "inversify": "^5.1.1",
     "inversify-express-utils": "^6.3.2",
+    "lodash": "^4.17.21",
     "mongodb": "^3.6.9",
-    "reflect-metadata": "^0.1.13"
+    "mongoose": "^5.13.2",
+    "reflect-metadata": "^0.1.13",
+    "swagger-express-ts": "^1.1.0",
+    "swagger-ui-dist": "^3.51.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.12",

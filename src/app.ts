@@ -17,6 +17,8 @@ import { InversifyExpressServer } from "inversify-express-utils";
 
 import "./app/controllers/profile.controller";
 import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import * as swagger from "swagger-express-ts";
 
 const app = express();
 
@@ -34,9 +36,36 @@ server.setConfig((app) => {
     })
   );
   app.use(bodyParser.json());
+  app.use(
+    swagger.express({
+      definition: {
+        info: {
+          title: "My api",
+          version: "1.0",
+        },
+        externalDocs: {
+          url: "My url",
+        },
+        // Models can be defined here
+      },
+    })
+  );
+  app.use("/api-docs/swagger", express.static("swagger"));
+  app.use(
+    "/api-docs/swagger/assets",
+    express.static("node_modules/swagger-ui-dist")
+  );
 });
 
 let appConfigured = server.build();
-let serve: any = appConfigured.listen(3000, () =>
-  console.log(`App running on ${serve.address().port}`)
-);
+
+mongoose
+  .connect("mongodb://localhost:27017", {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    let serve: any = appConfigured.listen(3000, () =>
+      console.log(`App running on ${serve.address().port}`)
+    );
+  });
