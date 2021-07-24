@@ -60,7 +60,8 @@ server.setConfig((app) => {
 });
 
 let appConfigured = server.build();
-let dbConnection = "mongodb+srv://superadmin:31415926535@Db@taco.g9uoi.mongodb.net/taco";
+let dbConnection =
+  "mongodb+srv://superadmin:31415926535@Db@taco.g9uoi.mongodb.net/taco";
 // let dbConnection = "mongodb://localhost:27017/taco";
 mongoose
   .connect(dbConnection, {
