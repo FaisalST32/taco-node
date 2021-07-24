@@ -1,0 +1,47 @@
+[
+  {
+    "fullName": "Alexa Bliss",
+    "profileMedia": [
+      {
+        "contentUrl": "https://tacostoragedev.blob.core.windows.net/profile/profile3vid.mp4",
+        "type": "video",
+        "thumbnailUrl": "https://tacostoragedev.blob.core.windows.net/profile/profile3poster.png"
+      }
+    ],
+    "age": 21,
+    "about": "I love to travel and read books",
+    "gender": "female",
+    "passions": ["60fc16edfa2b5d49004135d9", "60fc16edfa2b5d49004135db"],
+    "sexualOrientation": "straight"
+  },
+  {
+    "fullName": "Ethan Smith",
+    "profileMedia": [
+      {
+        "contentUrl": "https://tacostoragedev.blob.core.windows.net/profile/profile2vid.mp4",
+        "type": "video",
+        "thumbnailUrl": "https://tacostoragedev.blob.core.windows.net/profile/profile2poster.png"
+      }
+    ],
+    "age": 21,
+    "about": "You could read my life through my guitar",
+    "gender": "male",
+    "passions": ["60fc16edfa2b5d49004135d9", "60fc16edfa2b5d49004135db"],
+    "sexualOrientation": "gay"
+  },
+  {
+    "fullName": "Robin Jones",
+    "profileMedia": [
+      {
+        "contentUrl": "https://tacostoragedev.blob.core.windows.net/profile/profile1vid.mp4",
+        "type": "video",
+        "thumbnailUrl": "https://tacostoragedev.blob.core.windows.net/profile/profile1poster.png"
+      }
+    ],
+    "age": 21,
+    "about": "Fresh as the freshest herb ♥",
+    "gender": "female",
+    "passions": ["60fc16edfa2b5d49004135d9", "60fc16edfa2b5d49004135db"],
+    "sexualOrientation": "bisexual"
+  }
+]

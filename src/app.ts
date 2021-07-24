@@ -15,10 +15,12 @@ import express from "express";
 import container from "./inversify.config";
 import { InversifyExpressServer } from "inversify-express-utils";
 
-import "./app/controllers/profile.controller";
+import "./app/controllers/user.controller";
+import "./app/controllers/profiles.controller";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import * as swagger from "swagger-express-ts";
+import { seedData } from "./app/data/seed/seeder";
 
 const app = express();
 
@@ -40,7 +42,7 @@ server.setConfig((app) => {
     swagger.express({
       definition: {
         info: {
-          title: "My api",
+          title: "TacoAPI",
           version: "1.0",
         },
         externalDocs: {
@@ -60,10 +62,11 @@ server.setConfig((app) => {
 let appConfigured = server.build();
 
 mongoose
-  .connect("mongodb://localhost:27017", {
+  .connect("mongodb://localhost:27017/taco", {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
+  .then(() => seedData())
   .then(() => {
     let serve: any = appConfigured.listen(3000, () =>
       console.log(`App running on ${serve.address().port}`)

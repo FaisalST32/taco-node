@@ -1,16 +1,19 @@
-import { model, Schema } from "mongoose";
-import { User } from "../../../typings/profile.types";
+import { Passion, Profile } from "../../../typings/profile.types";
+import { getModelForClass } from "@typegoose/typegoose";
 
-const userSchema = new Schema<User>({
-  name: {
-    type: String,
-    required: true,
+export const ProfileModel = getModelForClass(Profile, {
+  options: {
+    customName: "Profile",
   },
-  age: {
-    type: Number,
-    required: true,
+  schemaOptions: {
+    timestamps: true,
   },
-  bio: String,
 });
-
-export const UserModel = model<User>("user", userSchema);
+export const PassionModel = getModelForClass(Passion, {
+  options: {
+    customName: "Passion",
+  },
+  schemaOptions: {
+    timestamps: true,
+  },
+});

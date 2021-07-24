@@ -1,0 +1,47 @@
+function generateParentheses(n) {
+    const paraCount = n * 2
+    const finalCombo = [];
+    const firstCombo = [];
+    for (let i = 0; i < n; i++) {
+        firstCombo.push(')');
+        firstCombo.unshift('(');
+    }
+    finalCombo.push(firstCombo.join(''));
+    let depths = 0;
+
+    function recurse(start, end, original, isFirst) {
+
+        if (isFirst) {
+            depths = 0;
+        }
+
+        depths++;
+        if (depths > n/2) {
+            return;
+        }
+        for (let i = start; i < paraCount/2; i++) {
+            for (let j = end; j >= paraCount/2; j--) {
+                const temp = [...original];
+                temp[i] = ')';
+                temp[j] = '('
+                finalCombo.push(temp.join(''))
+                recurse(start + 1, end - 1, temp, false);
+            }
+        }
+    }
+    recurse(1, paraCount - 2, firstCombo, true);
+
+    // for (let i = 1; i < paraCount/2; i++) {
+    //     for (let j = paraCount - 2; j >= paraCount/2; j--) {
+
+    //         const temp = [...firstCombo];
+    //         temp[i] = ')';
+    //         temp[j] = '('
+    //         finalCombo.push(temp.join(''))
+    //     }
+    // }
+    return [...new Set(finalCombo.sort())];
+}
+
+
+

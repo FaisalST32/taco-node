@@ -22,8 +22,8 @@ import {
   path: "/api/profile",
   name: "Profile",
 })
-@controller("/profile")
-export class ProfileController implements interfaces.Controller {
+@controller("/users")
+export class UserController implements interfaces.Controller {
   private _profileService: ProfileService;
   constructor(@inject(TYPES.ProfileService) profileService: ProfileService) {
     this._profileService = profileService;
