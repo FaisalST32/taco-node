@@ -1,21 +1,29 @@
 {
   "compilerOptions": {
+    "target": "es2018",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
-    "esModuleInterop": true,
     "emitDecoratorMetadata": true,
-    "target": "es6",
-    "noImplicitAny": true,
+    "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
+    "module": "ESNext",
+    "pretty": true,
     "sourceMap": true,
-    "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "node_modules/*"
-      ]
-    }
+    "outDir": "./build",
+    "allowJs": true,
+    "noEmit": false,
+    "esModuleInterop": true
   },
   "include": [
-    "src/**/*"
+    "./src/**/*", "util"
+  ],
+  "exclude": [
+    "node_modules",
+    "tests"
   ]
 }

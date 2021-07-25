@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/app.ts",
+  "type": "module",
   "scripts": {
     "start": "node --es-module-specifier-resolution=node dist/app.js",
-    "start:dev": "nodemon",
+    "start:dev": "nodemon --exec node --loader ts-node/esm src/app.ts",
+    "start:watch": "nodemon",
     "postinstall": "tsc",
     "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "@typegoose/typegoose": "8.0.0-beta.22",
     "body-parser": "^1.19.0",

@@ -10,15 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { controller, httpGet, httpPost, request, requestParam, response, } from "inversify-express-utils";
 import { ProfileService } from "../services/profile.service";
 import { inject } from "inversify";
@@ -28,23 +19,17 @@ let UserController = class UserController {
     constructor(profileService) {
         this._profileService = profileService;
     }
-    index(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const allUsers = yield this._profileService.getAllUsers();
-            res.status(200).send(allUsers);
-        });
+    async index(req, res) {
+        const allUsers = await this._profileService.getAllUsers();
+        res.status(200).send(allUsers);
     }
-    getById(id, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const profileData = yield this._profileService.getUserById(id);
-            res.status(200).send(profileData);
-        });
+    async getById(id, res) {
+        const profileData = await this._profileService.getUserById(id);
+        res.status(200).send(profileData);
     }
-    addUser(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const userAdded = yield this._profileService.addUser(req.body);
-            res.status(201).send(userAdded);
-        });
+    async addUser(req, res) {
+        const userAdded = await this._profileService.addUser(req.body);
+        res.status(201).send(userAdded);
     }
 };
 __decorate([

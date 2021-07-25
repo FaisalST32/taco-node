@@ -53,6 +53,6 @@ mongoose
 })
     .then(() => seedData())
     .then(() => {
-    let serve = appConfigured.listen(process.env.PORT || 3000, () => console.log(`App running on ${serve.address().port}`));
+    let serve = appConfigured.listen(process.env.PORT || 5000, () => console.log(`App running on ${serve.address().port}`));
 });
 //# sourceMappingURL=app.js.map

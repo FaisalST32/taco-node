@@ -24,7 +24,6 @@ import { seedData } from "./app/data/seed/seeder";
 import dotenv from "dotenv";
 
 dotenv.config();
-console.log(process.env.TEST_VAR);
 
 const app = express();
 
@@ -73,7 +72,7 @@ mongoose
   })
   .then(() => seedData())
   .then(() => {
-    let serve: any = appConfigured.listen(process.env.PORT || 3000, () =>
+    let serve: any = appConfigured.listen(process.env.PORT || 5000, () =>
       console.log(`App running on ${serve.address().port}`)
     );
   });

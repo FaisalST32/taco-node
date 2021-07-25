@@ -10,15 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { controller, httpGet, httpPost, request, response, } from "inversify-express-utils";
 import { ProfileService } from "../services/profile.service";
 import { TYPES } from "../../inversify.config";
@@ -27,18 +18,14 @@ let ProfilesController = class ProfilesController {
     constructor(profileService) {
         this._profileService = profileService;
     }
-    getAllProfiles(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const allProfiles = yield this._profileService.getAllProfiles();
-            console.log(allProfiles);
-            res.status(200).send(allProfiles);
-        });
+    async getAllProfiles(req, res) {
+        const allProfiles = await this._profileService.getAllProfiles();
+        console.log(allProfiles);
+        res.status(200).send(allProfiles);
     }
-    createProfile(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const savedProfile = yield this._profileService.saveProfile(req.body);
-            res.status(200).send(savedProfile);
-        });
+    async createProfile(req, res) {
+        const savedProfile = await this._profileService.saveProfile(req.body);
+        res.status(200).send(savedProfile);
     }
 };
 __decorate([
