@@ -24,6 +24,7 @@ import { seedData } from "./app/data/seed/seeder";
 import dotenv from "dotenv";
 
 dotenv.config();
+console.log(process.env.TEST_VAR);
 
 const app = express();
 
