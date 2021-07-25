@@ -70,7 +70,7 @@ mongoose
   })
   .then(() => seedData())
   .then(() => {
-    let serve: any = appConfigured.listen(3000, () =>
+    let serve: any = appConfigured.listen(process.env.PORT || 3000, () =>
       console.log(`App running on ${serve.address().port}`)
     );
   });
