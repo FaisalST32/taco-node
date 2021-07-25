@@ -1,18 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TYPES = void 0;
-const inversify_1 = require("inversify");
-const repository_1 = require("./app/data/repository");
-const profile_service_1 = require("./app/services/profile.service");
-exports.TYPES = {
+import { Container } from "inversify";
+import { Repository } from "./app/data/repository";
+import { ProfileService } from "./app/services/profile.service";
+export const TYPES = {
     Repository: "Repository",
     ProfileService: Symbol("ProfileService"),
 };
-const container = new inversify_1.Container();
-container.bind(exports.TYPES.Repository).to(repository_1.Repository).inSingletonScope();
+const container = new Container();
+container.bind(TYPES.Repository).to(Repository).inSingletonScope();
 container
-    .bind(exports.TYPES.ProfileService)
-    .to(profile_service_1.ProfileService)
+    .bind(TYPES.ProfileService)
+    .to(ProfileService)
     .inRequestScope();
-exports.default = container;
+export default container;
 //# sourceMappingURL=inversify.config.js.map

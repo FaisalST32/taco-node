@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,13 +19,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
-const inversify_express_utils_1 = require("inversify-express-utils");
-const profile_service_1 = require("../services/profile.service");
-const inversify_1 = require("inversify");
-const inversify_config_1 = require("../../inversify.config");
-const swagger_express_ts_1 = require("swagger-express-ts");
+import { controller, httpGet, httpPost, request, requestParam, response, } from "inversify-express-utils";
+import { ProfileService } from "../services/profile.service";
+import { inject } from "inversify";
+import { TYPES } from "../../inversify.config";
+import { ApiOperationGet, ApiOperationPost, ApiPath, SwaggerDefinitionConstant, } from "swagger-express-ts";
 let UserController = class UserController {
     constructor(profileService) {
         this._profileService = profileService;
@@ -51,29 +48,29 @@ let UserController = class UserController {
     }
 };
 __decorate([
-    swagger_express_ts_1.ApiOperationGet({
+    ApiOperationGet({
         description: "Get all users",
         responses: {
             200: {
                 description: "Success",
-                type: swagger_express_ts_1.SwaggerDefinitionConstant.Response.Type.ARRAY,
+                type: SwaggerDefinitionConstant.Response.Type.ARRAY,
             },
         },
     }),
-    inversify_express_utils_1.httpGet("/"),
-    __param(0, inversify_express_utils_1.request()),
-    __param(1, inversify_express_utils_1.response()),
+    httpGet("/"),
+    __param(0, request()),
+    __param(1, response()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "index", null);
 __decorate([
-    swagger_express_ts_1.ApiOperationGet({
+    ApiOperationGet({
         description: "Get user by id",
         responses: {
             200: {
                 description: "Success",
-                type: swagger_express_ts_1.SwaggerDefinitionConstant.Response.Type.OBJECT,
+                type: SwaggerDefinitionConstant.Response.Type.OBJECT,
             },
         },
         path: "/{id}",
@@ -86,20 +83,20 @@ __decorate([
             },
         },
     }),
-    inversify_express_utils_1.httpGet("/:id"),
-    __param(0, inversify_express_utils_1.requestParam("id")),
-    __param(1, inversify_express_utils_1.response()),
+    httpGet("/:id"),
+    __param(0, requestParam("id")),
+    __param(1, response()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getById", null);
 __decorate([
-    swagger_express_ts_1.ApiOperationPost({
+    ApiOperationPost({
         description: "Save a new user",
         responses: {
             200: {
                 description: "Success",
-                type: swagger_express_ts_1.SwaggerDefinitionConstant.Response.Type.OBJECT,
+                type: SwaggerDefinitionConstant.Response.Type.OBJECT,
             },
         },
         parameters: {
@@ -113,21 +110,21 @@ __decorate([
             },
         },
     }),
-    inversify_express_utils_1.httpPost("/"),
-    __param(0, inversify_express_utils_1.request()),
-    __param(1, inversify_express_utils_1.response()),
+    httpPost("/"),
+    __param(0, request()),
+    __param(1, response()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "addUser", null);
 UserController = __decorate([
-    swagger_express_ts_1.ApiPath({
+    ApiPath({
         path: "/api/profile",
         name: "Profile",
     }),
-    inversify_express_utils_1.controller("/users"),
-    __param(0, inversify_1.inject(inversify_config_1.TYPES.ProfileService)),
-    __metadata("design:paramtypes", [profile_service_1.ProfileService])
+    controller("/users"),
+    __param(0, inject(TYPES.ProfileService)),
+    __metadata("design:paramtypes", [ProfileService])
 ], UserController);
-exports.UserController = UserController;
+export { UserController };
 //# sourceMappingURL=user.controller.js.map

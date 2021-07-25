@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -20,12 +19,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProfilesController = void 0;
-const inversify_express_utils_1 = require("inversify-express-utils");
-const profile_service_1 = require("../services/profile.service");
-const inversify_config_1 = require("../../inversify.config");
-const inversify_1 = require("inversify");
+import { controller, httpGet, httpPost, request, response, } from "inversify-express-utils";
+import { ProfileService } from "../services/profile.service";
+import { TYPES } from "../../inversify.config";
+import { inject } from "inversify";
 let ProfilesController = class ProfilesController {
     constructor(profileService) {
         this._profileService = profileService;
@@ -45,25 +42,25 @@ let ProfilesController = class ProfilesController {
     }
 };
 __decorate([
-    inversify_express_utils_1.httpGet("/"),
-    __param(0, inversify_express_utils_1.request()),
-    __param(1, inversify_express_utils_1.response()),
+    httpGet("/"),
+    __param(0, request()),
+    __param(1, response()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], ProfilesController.prototype, "getAllProfiles", null);
 __decorate([
-    inversify_express_utils_1.httpPost("/"),
-    __param(0, inversify_express_utils_1.request()),
-    __param(1, inversify_express_utils_1.response()),
+    httpPost("/"),
+    __param(0, request()),
+    __param(1, response()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], ProfilesController.prototype, "createProfile", null);
 ProfilesController = __decorate([
-    inversify_express_utils_1.controller("/profiles"),
-    __param(0, inversify_1.inject(inversify_config_1.TYPES.ProfileService)),
-    __metadata("design:paramtypes", [profile_service_1.ProfileService])
+    controller("/profiles"),
+    __param(0, inject(TYPES.ProfileService)),
+    __metadata("design:paramtypes", [ProfileService])
 ], ProfilesController);
-exports.ProfilesController = ProfilesController;
+export { ProfilesController };
 //# sourceMappingURL=profiles.controller.js.map

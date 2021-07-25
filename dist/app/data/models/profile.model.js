@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PassionModel = exports.ProfileModel = void 0;
-const profile_types_1 = require("../../../typings/profile.types");
-const typegoose_1 = require("@typegoose/typegoose");
-exports.ProfileModel = typegoose_1.getModelForClass(profile_types_1.Profile, {
+import { Passion, Profile } from "../../../typings/profile.types";
+import { getModelForClass } from "@typegoose/typegoose";
+export const ProfileModel = getModelForClass(Profile, {
     options: {
         customName: "Profile",
     },
@@ -11,7 +8,7 @@ exports.ProfileModel = typegoose_1.getModelForClass(profile_types_1.Profile, {
         timestamps: true,
     },
 });
-exports.PassionModel = typegoose_1.getModelForClass(profile_types_1.Passion, {
+export const PassionModel = getModelForClass(Passion, {
     options: {
         customName: "Passion",
     },

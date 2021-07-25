@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,17 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Profile = exports.ProfileMedia = exports.Media = exports.Passion = exports.SexualOrientation = exports.Gender = void 0;
-const typegoose_1 = require("@typegoose/typegoose");
-const mongodb_1 = require("mongodb");
-var Gender;
+import { prop } from "@typegoose/typegoose";
+import mongo from "mongodb";
+export var Gender;
 (function (Gender) {
     Gender["Male"] = "male";
     Gender["Female"] = "female";
     Gender["Other"] = "other";
-})(Gender = exports.Gender || (exports.Gender = {}));
-var SexualOrientation;
+})(Gender || (Gender = {}));
+export var SexualOrientation;
 (function (SexualOrientation) {
     SexualOrientation["Straight"] = "straight";
     SexualOrientation["Gay"] = "gay";
@@ -30,67 +27,64 @@ var SexualOrientation;
     SexualOrientation["Queer"] = "queer";
     SexualOrientation["Bicurious"] = "bicurious";
     SexualOrientation["Aromantic"] = "aromantic";
-})(SexualOrientation = exports.SexualOrientation || (exports.SexualOrientation = {}));
-class Passion {
+})(SexualOrientation || (SexualOrientation = {}));
+export class Passion {
 }
 __decorate([
-    typegoose_1.prop(),
-    __metadata("design:type", mongodb_1.ObjectID)
+    prop(),
+    __metadata("design:type", mongo.ObjectID)
 ], Passion.prototype, "_id", void 0);
 __decorate([
-    typegoose_1.prop(),
+    prop(),
     __metadata("design:type", String)
 ], Passion.prototype, "text", void 0);
-exports.Passion = Passion;
-var Media;
+export var Media;
 (function (Media) {
     Media["Image"] = "image";
     Media["Video"] = "video";
-})(Media = exports.Media || (exports.Media = {}));
-class ProfileMedia {
+})(Media || (Media = {}));
+export class ProfileMedia {
 }
 __decorate([
-    typegoose_1.prop({ enum: Media }),
+    prop({ enum: Media }),
     __metadata("design:type", String)
 ], ProfileMedia.prototype, "type", void 0);
 __decorate([
-    typegoose_1.prop(),
+    prop(),
     __metadata("design:type", String)
 ], ProfileMedia.prototype, "contentUrl", void 0);
 __decorate([
-    typegoose_1.prop(),
+    prop(),
     __metadata("design:type", String)
 ], ProfileMedia.prototype, "thumbnailUrl", void 0);
-exports.ProfileMedia = ProfileMedia;
-class Profile {
+export class Profile {
 }
 __decorate([
-    typegoose_1.prop(),
+    prop(),
     __metadata("design:type", String)
 ], Profile.prototype, "fullName", void 0);
 __decorate([
-    typegoose_1.prop({ enum: Gender }),
+    prop({ enum: Gender }),
     __metadata("design:type", String)
 ], Profile.prototype, "gender", void 0);
 __decorate([
-    typegoose_1.prop(),
+    prop(),
     __metadata("design:type", Number)
 ], Profile.prototype, "age", void 0);
 __decorate([
-    typegoose_1.prop(),
+    prop(),
     __metadata("design:type", String)
 ], Profile.prototype, "about", void 0);
 __decorate([
-    typegoose_1.prop({ ref: Passion, autopopulate: true }),
+    prop({ ref: Passion, autopopulate: true }),
     __metadata("design:type", Array)
 ], Profile.prototype, "passions", void 0);
 __decorate([
-    typegoose_1.prop({ type: () => ProfileMedia }),
+    prop({ type: () => ProfileMedia }),
     __metadata("design:type", Array)
 ], Profile.prototype, "profileMedia", void 0);
 __decorate([
-    typegoose_1.prop({ enum: SexualOrientation }),
+    prop({ enum: SexualOrientation }),
     __metadata("design:type", String)
 ], Profile.prototype, "sexualOrientation", void 0);
-exports.Profile = Profile;
 //# sourceMappingURL=profile.types.js.map

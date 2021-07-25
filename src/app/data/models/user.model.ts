@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
+import mongoose from "mongoose";
 import { User } from "../../../typings/user.types";
 
-const userSchema = new Schema<User>(
+const userSchema = new mongoose.Schema<User>(
   {
     name: {
       type: String,
@@ -18,4 +18,4 @@ const userSchema = new Schema<User>(
   }
 );
 
-export const UserModel = model<User>("user", userSchema);
+export const UserModel = mongoose.model<User>("user", userSchema);

@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,14 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Repository = void 0;
-const mongodb_1 = require("mongodb");
-const inversify_1 = require("inversify");
-const connection_1 = require("./connection");
+import mongo from "mongodb";
+import { injectable } from "inversify";
+import { MongoDBConnection } from "./connection";
 let Repository = class Repository {
     constructor() {
-        connection_1.MongoDBConnection.getConnection((connection) => {
+        MongoDBConnection.getConnection((connection) => {
             this.db = connection;
         });
     }
@@ -30,7 +27,7 @@ let Repository = class Repository {
     findOneById(collection, objectId, result) {
         this.db
             .collection(collection)
-            .find({ _id: new mongodb_1.ObjectID(objectId) })
+            .find({ _id: new mongo.ObjectID(objectId) })
             .limit(1)
             .toArray((error, find) => {
             return result(error, find[0]);
@@ -46,19 +43,19 @@ let Repository = class Repository {
     update(collection, objectId, model, result) {
         this.db
             .collection(collection)
-            .updateOne({ _id: new mongodb_1.ObjectID(objectId) }, { $set: model }, (error, update) => result(error, model));
+            .updateOne({ _id: new mongo.ObjectID(objectId) }, { $set: model }, (error, update) => result(error, model));
     }
     remove(collection, objectId, result) {
         this.db
             .collection(collection)
-            .deleteOne({ _id: new mongodb_1.ObjectID(objectId) }, (error, remove) => {
+            .deleteOne({ _id: new mongo.ObjectID(objectId) }, (error, remove) => {
             return result(error, remove);
         });
     }
 };
 Repository = __decorate([
-    inversify_1.injectable(),
+    injectable(),
     __metadata("design:paramtypes", [])
 ], Repository);
-exports.Repository = Repository;
+export { Repository };
 //# sourceMappingURL=repository.js.map

@@ -1,18 +1,10 @@
-import {
-  Db,
-  DeleteWriteOpResultObject,
-  InsertOneWriteOpResult,
-  MongoError,
-  ObjectID,
-  UpdateWriteOpResult,
-  WithId,
-} from "mongodb";
+import mongo from "mongodb";
 import { injectable } from "inversify";
 import { MongoDBConnection } from "./connection";
 
 @injectable()
 export class Repository {
-  public db: Db;
+  public db: mongo.Db;
 
   constructor() {
     MongoDBConnection.getConnection((connection) => {
@@ -23,7 +15,7 @@ export class Repository {
   public find<T>(
     collection: string,
     filter: Object,
-    result: (error: MongoError, data: T[]) => void
+    result: (error: mongo.MongoError, data: T[]) => void
   ): void {
     this.db
       .collection(collection)
@@ -36,13 +28,13 @@ export class Repository {
   public findOneById<T>(
     collection: string,
     objectId: string,
-    result: (error: MongoError, data: T) => void
+    result: (error: mongo.MongoError, data: T) => void
   ): void {
     this.db
       .collection(collection)
-      .find({ _id: new ObjectID(objectId) })
+      .find({ _id: new mongo.ObjectID(objectId) })
       .limit(1)
-      .toArray((error: MongoError, find: T[]) => {
+      .toArray((error: mongo.MongoError, find: T[]) => {
         return result(error, find[0]);
       });
   }
@@ -50,38 +42,45 @@ export class Repository {
   public insert<T>(
     collection: string,
     model: T,
-    result: (error: MongoError, data: WithId<T>) => void
+    result: (error: mongo.MongoError, data: mongo.WithId<T>) => void
   ): void {
     this.db
       .collection(collection)
-      .insertOne(model, (error, insert: InsertOneWriteOpResult<WithId<T>>) => {
-        return result(error, insert.ops[0]);
-      });
+      .insertOne(
+        model,
+        (error, insert: mongo.InsertOneWriteOpResult<mongo.WithId<T>>) => {
+          return result(error, insert.ops[0]);
+        }
+      );
   }
 
   public update<T>(
     collection: string,
     objectId: string,
     model: T,
-    result: (error: MongoError, data: T) => void
+    result: (error: mongo.MongoError, data: T) => void
   ): void {
     this.db
       .collection(collection)
       .updateOne(
-        { _id: new ObjectID(objectId) },
+        { _id: new mongo.ObjectID(objectId) },
         { $set: model },
-        (error: MongoError, update: UpdateWriteOpResult) => result(error, model)
+        (error: mongo.MongoError, update: mongo.UpdateWriteOpResult) =>
+          result(error, model)
       );
   }
 
   public remove(
     collection: string,
     objectId: string,
-    result: (error: MongoError, data: DeleteWriteOpResultObject) => void
+    result: (
+      error: mongo.MongoError,
+      data: mongo.DeleteWriteOpResultObject
+    ) => void
   ): void {
     this.db
       .collection(collection)
-      .deleteOne({ _id: new ObjectID(objectId) }, (error, remove) => {
+      .deleteOne({ _id: new mongo.ObjectID(objectId) }, (error, remove) => {
         return result(error, remove);
       });
   }

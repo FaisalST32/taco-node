@@ -1,10 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.MongoDBConnection = void 0;
-const mongodb_1 = require("mongodb");
+import mongo from "mongodb";
 const connStr = "mongodb://localhost:27017";
 const dbName = "inversify-express-example";
-class MongoDBConnection {
+export class MongoDBConnection {
     static getConnection(result) {
         if (this.isConnected) {
             return result(this.db);
@@ -16,13 +13,12 @@ class MongoDBConnection {
         }
     }
     static connect(result) {
-        mongodb_1.MongoClient.connect(connStr, (err, client) => {
+        mongo.MongoClient.connect(connStr, (err, client) => {
             this.db = client.db(dbName);
             this.isConnected = true;
             return result(err, this.db);
         });
     }
 }
-exports.MongoDBConnection = MongoDBConnection;
 MongoDBConnection.isConnected = false;
 //# sourceMappingURL=connection.js.map

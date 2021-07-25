@@ -1,5 +1,5 @@
 import { prop, Ref } from "@typegoose/typegoose";
-import { ObjectID } from "mongodb";
+import mongo from "mongodb";
 
 export enum Gender {
   Male = "male",
@@ -22,7 +22,7 @@ export enum SexualOrientation {
 
 export class Passion {
   @prop()
-  _id?: ObjectID;
+  _id?: mongo.ObjectID;
   @prop()
   text: string;
 }

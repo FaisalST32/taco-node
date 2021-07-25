@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,11 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.seedData = void 0;
-const profile_model_1 = require("../models/profile.model");
+import { PassionModel } from "../models/profile.model";
 const seedPassions = () => __awaiter(void 0, void 0, void 0, function* () {
-    const dataSeeded = yield profile_model_1.PassionModel.estimatedDocumentCount();
+    const dataSeeded = yield PassionModel.estimatedDocumentCount();
     if (dataSeeded)
         return;
     const passions = [
@@ -38,11 +35,10 @@ const seedPassions = () => __awaiter(void 0, void 0, void 0, function* () {
             text: "Cats",
         },
     ];
-    return profile_model_1.PassionModel.collection.insertMany(passions);
+    return PassionModel.collection.insertMany(passions);
 });
-const seedData = () => __awaiter(void 0, void 0, void 0, function* () {
+export const seedData = () => __awaiter(void 0, void 0, void 0, function* () {
     yield Promise.all([seedPassions()]);
     console.log("data seeded");
 });
-exports.seedData = seedData;
 //# sourceMappingURL=seeder.js.map
