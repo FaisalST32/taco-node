@@ -22,6 +22,8 @@ import mongoose from "mongoose";
 import * as swagger from "swagger-express-ts";
 import { seedData } from "./app/data/seed/seeder";
 
+require("dotenv").config();
+
 const app = express();
 
 let server = new InversifyExpressServer(
@@ -60,8 +62,7 @@ server.setConfig((app) => {
 });
 
 let appConfigured = server.build();
-let dbConnection =
-  "mongodb+srv://superadmin:31415926535@Db@taco.g9uoi.mongodb.net/taco";
+let dbConnection = process.env.MONGO_CONNECTION_STRING;
 // let dbConnection = "mongodb://localhost:27017/taco";
 mongoose
   .connect(dbConnection, {
