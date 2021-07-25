@@ -19,6 +19,8 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import * as swagger from "swagger-express-ts";
 import { seedData } from "./app/data/seed/seeder";
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
 let server = new InversifyExpressServer(container, null, { rootPath: "/api" }, app);
 server.setConfig((app) => {
@@ -42,7 +44,7 @@ server.setConfig((app) => {
     app.use("/api-docs/swagger/assets", express.static("node_modules/swagger-ui-dist"));
 });
 let appConfigured = server.build();
-let dbConnection = "mongodb+srv://superadmin:31415926535@Db@taco.g9uoi.mongodb.net/taco";
+let dbConnection = process.env.MONGO_CONNECTION_STRING;
 // let dbConnection = "mongodb://localhost:27017/taco";
 mongoose
     .connect(dbConnection, {

@@ -21,8 +21,9 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import * as swagger from "swagger-express-ts";
 import { seedData } from "./app/data/seed/seeder";
+import dotenv from "dotenv";
 
-require("dotenv").config();
+dotenv.config();
 
 const app = express();
 
