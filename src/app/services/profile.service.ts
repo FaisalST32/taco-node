@@ -7,10 +7,6 @@ import { ProfileModel } from "../data/models/profile.model";
 
 @injectable()
 export class ProfileService {
-  private _repository: Repository;
-  constructor(@inject("Repository") repository: Repository) {
-    this._repository = repository;
-  }
   getAllUsers(): Promise<User[]> {
     return UserModel.find().exec();
   }
