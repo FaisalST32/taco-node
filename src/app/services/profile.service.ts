@@ -1,9 +1,8 @@
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 import { User } from "../../typings/user.types";
 import { UserModel } from "../data/models/user.model";
-import { Repository } from "../data/repository";
-import { Profile } from "../../typings/profile.types";
-import { ProfileModel } from "../data/models/profile.model";
+import { Passion, Profile } from "../../typings/profile.types";
+import { PassionModel, ProfileModel } from "../data/models/profile.model";
 
 @injectable()
 export class ProfileService {
@@ -38,5 +37,9 @@ export class ProfileService {
   async saveProfile(profile: Profile): Promise<Profile> {
     const profileToAdd = new ProfileModel(profile);
     return profileToAdd.save();
+  }
+
+  getAllPassions(): Promise<Passion[]> {
+    return PassionModel.find().exec();
   }
 }

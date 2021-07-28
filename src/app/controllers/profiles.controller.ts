@@ -10,7 +10,7 @@ import { ProfileService } from "../services/profile.service";
 import { TYPES } from "../../inversify.config";
 import { inject } from "inversify";
 import { Request, Response } from "express";
-import { Profile } from "../../typings/profile.types";
+import { Passion, Profile } from "../../typings/profile.types";
 
 @controller("/profiles")
 export class ProfilesController implements interfaces.Controller {
@@ -36,5 +36,11 @@ export class ProfilesController implements interfaces.Controller {
   ) {
     const savedProfile = await this._profileService.saveProfile(req.body);
     res.status(200).send(savedProfile);
+  }
+
+  @httpGet("/passions")
+  public async getPassions(@request() req: Request, @response() res: Response) {
+    const passions: Passion[] = await this._profileService.getAllPassions();
+    res.status(200).send(passions);
   }
 }
