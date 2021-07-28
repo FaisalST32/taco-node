@@ -3,7 +3,10 @@ import { PassionModel } from "../models/profile.model";
 
 const seedPassions = async () => {
   const dataSeeded = await PassionModel.estimatedDocumentCount();
-  if (dataSeeded) return;
+  if (dataSeeded) {
+    console.log("skipping data seed");
+    return;
+  }
   const passions: Passion[] = [
     {
       text: "Sky Diving",
@@ -27,11 +30,9 @@ const seedPassions = async () => {
       text: "Cats",
     },
   ];
-
   return PassionModel.collection.insertMany(passions);
 };
 
 export const seedData = async () => {
   await Promise.all([seedPassions()]);
-  console.log("data seeded");
 };
