@@ -1,23 +1,23 @@
-import { prop, Ref } from "@typegoose/typegoose";
-import mongo from "mongodb";
+import { prop, Ref } from '@typegoose/typegoose';
+import mongo from 'mongodb';
 
 export enum Gender {
-  Male = "male",
-  Female = "female",
-  Other = "other",
+  Male = 'male',
+  Female = 'female',
+  Other = 'other',
 }
 
 export enum SexualOrientation {
-  Straight = "straight",
-  Gay = "gay",
-  Lesbian = "lesbian",
-  Bisexual = "bisexual",
-  Asexual = "asexual",
-  Demisexual = "demisexual",
-  Pansexual = "pansexual",
-  Queer = "queer",
-  Bicurious = "bicurious",
-  Aromantic = "aromantic",
+  Straight = 'straight',
+  Gay = 'gay',
+  Lesbian = 'lesbian',
+  Bisexual = 'bisexual',
+  Asexual = 'asexual',
+  Demisexual = 'demisexual',
+  Pansexual = 'pansexual',
+  Queer = 'queer',
+  Bicurious = 'bicurious',
+  Aromantic = 'aromantic',
 }
 
 export class Passion {
@@ -28,8 +28,8 @@ export class Passion {
 }
 
 export enum Media {
-  Image = "image",
-  Video = "video",
+  Image = 'image',
+  Video = 'video',
 }
 
 export class ProfileMedia {

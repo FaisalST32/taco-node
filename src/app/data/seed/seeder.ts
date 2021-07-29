@@ -1,33 +1,33 @@
-import { Passion } from "../../../typings/profile.types";
-import { PassionModel } from "../models/profile.model";
+import { Passion } from '../../../typings/profile.types';
+import { PassionModel } from '../models/profile.model';
 
 const seedPassions = async () => {
   const dataSeeded = await PassionModel.estimatedDocumentCount();
   if (dataSeeded) {
-    console.log("skipping data seed");
+    console.log('skipping data seed');
     return;
   }
   const passions: Passion[] = [
     {
-      text: "Sky Diving",
+      text: 'Sky Diving',
     },
     {
-      text: "Music",
+      text: 'Music',
     },
     {
-      text: "Skiing",
+      text: 'Skiing',
     },
     {
-      text: "Painting",
+      text: 'Painting',
     },
     {
-      text: "Gaming",
+      text: 'Gaming',
     },
     {
-      text: "Dogs",
+      text: 'Dogs',
     },
     {
-      text: "Cats",
+      text: 'Cats',
     },
   ];
   return PassionModel.collection.insertMany(passions);

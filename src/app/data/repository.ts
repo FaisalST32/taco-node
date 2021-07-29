@@ -1,6 +1,6 @@
-import mongo from "mongodb";
-import { injectable } from "inversify";
-import { MongoDBConnection } from "./connection";
+import mongo from 'mongodb';
+import { injectable } from 'inversify';
+import { MongoDBConnection } from './connection';
 
 @injectable()
 export class Repository {

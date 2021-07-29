@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { User } from "../../../typings/user.types";
+import mongoose from 'mongoose';
+import { User } from '../../../typings/user.types';
 
 const userSchema = new mongoose.Schema<User>(
   {
@@ -18,4 +18,4 @@ const userSchema = new mongoose.Schema<User>(
   }
 );
 
-export const UserModel = mongoose.model<User>("user", userSchema);
+export const UserModel = mongoose.model<User>('user', userSchema);

@@ -6,23 +6,23 @@ import {
   request,
   requestParam,
   response,
-} from "inversify-express-utils";
-import { Request, Response } from "express";
-import { ProfileService } from "../services/profile.service";
-import { inject } from "inversify";
-import { TYPES } from "../../inversify.config";
+} from 'inversify-express-utils';
+import { Request, Response } from 'express';
+import { ProfileService } from '../services/profile.service';
+import { inject } from 'inversify';
+import { TYPES } from '../../inversify.config';
 import {
   ApiOperationGet,
   ApiOperationPost,
   ApiPath,
   SwaggerDefinitionConstant,
-} from "swagger-express-ts";
+} from 'swagger-express-ts';
 
 @ApiPath({
-  path: "/api/profile",
-  name: "Profile",
+  path: '/api/profile',
+  name: 'Profile',
 })
-@controller("/users")
+@controller('/users')
 export class UserController implements interfaces.Controller {
   private _profileService: ProfileService;
   constructor(@inject(TYPES.ProfileService) profileService: ProfileService) {
@@ -30,41 +30,41 @@ export class UserController implements interfaces.Controller {
   }
 
   @ApiOperationGet({
-    description: "Get all users",
+    description: 'Get all users',
     responses: {
       200: {
-        description: "Success",
+        description: 'Success',
         type: SwaggerDefinitionConstant.Response.Type.ARRAY,
       },
     },
   })
-  @httpGet("/")
+  @httpGet('/')
   public async index(@request() req: Request, @response() res: Response) {
     const allUsers = await this._profileService.getAllUsers();
     res.status(200).send(allUsers);
   }
 
   @ApiOperationGet({
-    description: "Get user by id",
+    description: 'Get user by id',
     responses: {
       200: {
-        description: "Success",
+        description: 'Success',
         type: SwaggerDefinitionConstant.Response.Type.OBJECT,
       },
     },
-    path: "/{id}",
+    path: '/{id}',
     parameters: {
       path: {
         id: {
-          name: "id",
-          type: "string",
+          name: 'id',
+          type: 'string',
         },
       },
     },
   })
-  @httpGet("/:id")
+  @httpGet('/:id')
   public async getById(
-    @requestParam("id") id: string,
+    @requestParam('id') id: string,
     @response() res: Response
   ) {
     const profileData = await this._profileService.getUserById(id);
@@ -72,25 +72,25 @@ export class UserController implements interfaces.Controller {
   }
 
   @ApiOperationPost({
-    description: "Save a new user",
+    description: 'Save a new user',
     responses: {
       200: {
-        description: "Success",
+        description: 'Success',
         type: SwaggerDefinitionConstant.Response.Type.OBJECT,
       },
     },
     parameters: {
       body: {
-        name: "user to add",
+        name: 'user to add',
         properties: {
-          name: { type: "string" },
-          bio: { type: "string" },
-          age: { type: "number" },
+          name: { type: 'string' },
+          bio: { type: 'string' },
+          age: { type: 'number' },
         },
       },
     },
   })
-  @httpPost("/")
+  @httpPost('/')
   public async addUser(@request() req: Request, @response() res: Response) {
     const userAdded = await this._profileService.addUser(req.body);
     res.status(201).send(userAdded);

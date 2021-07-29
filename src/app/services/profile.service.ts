@@ -1,8 +1,8 @@
-import { injectable } from "inversify";
-import { User } from "../../typings/user.types";
-import { UserModel } from "../data/models/user.model";
-import { Passion, Profile } from "../../typings/profile.types";
-import { PassionModel, ProfileModel } from "../data/models/profile.model";
+import { injectable } from 'inversify';
+import { User } from '../../typings/user.types';
+import { UserModel } from '../data/models/user.model';
+import { Passion, Profile } from '../../typings/profile.types';
+import { PassionModel, ProfileModel } from '../data/models/profile.model';
 
 @injectable()
 export class ProfileService {
@@ -29,7 +29,7 @@ export class ProfileService {
     return (
       ProfileModel.find()
         //.populate("profileMedia")
-        .populate({ path: "passions", model: "Passion" })
+        .populate({ path: 'passions', model: 'Passion' })
         .exec()
     );
   }
