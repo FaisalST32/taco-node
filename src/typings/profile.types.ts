@@ -1,5 +1,6 @@
 import { prop, Ref } from '@typegoose/typegoose';
 import mongo from 'mongodb';
+import { Like } from './action.types';
 
 export enum Gender {
   Male = 'male',
@@ -56,4 +57,6 @@ export class Profile {
   profileMedia: ProfileMedia[];
   @prop({ enum: SexualOrientation })
   sexualOrientation: SexualOrientation;
+  @prop({ ref: Like })
+  likes: Ref<Like>[];
 }
