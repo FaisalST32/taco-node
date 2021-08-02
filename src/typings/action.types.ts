@@ -10,3 +10,12 @@ export class Like {
   @prop()
   isSuperLike: boolean;
 }
+
+export class UserLikes {
+  @prop()
+  _id?: mongodb.ObjectId;
+  @prop({ ref: Profile })
+  user: Ref<Profile>;
+  @prop({ ref: Like })
+  likes: Ref<Like>[];
+}

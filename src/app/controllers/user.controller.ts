@@ -10,7 +10,7 @@ import {
 import { Request, Response } from 'express';
 import { ProfileService } from '../services/profile.service';
 import { inject } from 'inversify';
-import { TYPES } from '../../inversify.config';
+import { TYPES } from '../../inversify/types';
 import {
   ApiOperationGet,
   ApiOperationPost,

@@ -7,7 +7,7 @@ import {
   response,
 } from 'inversify-express-utils';
 import { ProfileService } from '../services/profile.service';
-import { TYPES } from '../../inversify.config';
+import { TYPES } from '../../inversify/types';
 import { inject } from 'inversify';
 import { Request, Response } from 'express';
 import { Passion, Profile } from '../../typings/profile.types';

@@ -1,31 +1,59 @@
 import { inject, injectable } from 'inversify';
-import { LikeModel } from '../data/models/action.model';
+import { LikeModel, UserLikesModel } from '../data/models/action.model';
 import mongodb from 'mongodb';
-import { Like } from '../../typings/action.types';
-import { ProfileModel } from '../data/models/profile.model';
+import { Like, UserLikes } from '../../typings/action.types';
 import { AuthService } from './auth.service';
+import { TYPES } from '../../inversify/types';
 
 @injectable()
 export class ActionsService {
   private _authService: AuthService;
-  constructor(@inject('AuthService') authService: AuthService) {
+  constructor(@inject(TYPES.AuthService) authService: AuthService) {
     this._authService = authService;
   }
-  async likeProfile(profileId: string): Promise<boolean> {
+  async likeProfile(profileId: string, isSuperLike: boolean): Promise<boolean> {
     try {
       const newLike: Like = {
+        _id: new mongodb.ObjectID(),
         user: new mongodb.ObjectID(profileId),
-        isSuperLike: false,
+        isSuperLike,
       };
       const likeToAdd = new LikeModel(newLike);
       const savedLike = await likeToAdd.save();
       const currentUserId = await this._authService.getLoggedInUserId();
-      const foundProfile = await ProfileModel.findById(currentUserId);
-      foundProfile.likes = [...foundProfile.likes, savedLike._id];
-      await foundProfile.save();
+      let foundUserLikes = await UserLikesModel.findOne({
+        user: currentUserId,
+      });
+      if (!foundUserLikes) {
+        foundUserLikes = await ActionsService.createNewUserLikes(currentUserId);
+      }
+      foundUserLikes.likes = [...foundUserLikes.likes, savedLike._id];
+      await foundUserLikes.save();
       return true;
-    } catch {
-      return false;
+    } catch (e) {
+      console.log(e);
+      throw e;
     }
+  }
+
+  async getUserLikes(): Promise<UserLikes[]> {
+    return UserLikesModel.find()
+      .populate({
+        path: 'likes',
+        model: 'Like',
+        populate: { path: 'user', model: 'Profile' },
+      })
+      .exec();
+  }
+
+  private static async createNewUserLikes(userId: string) {
+    const newUserLikes: UserLikes = {
+      _id: new mongodb.ObjectID(),
+      user: new mongodb.ObjectID(userId),
+      likes: [],
+    };
+
+    const newUserLikesModel = new UserLikesModel(newUserLikes);
+    return newUserLikesModel.save();
   }
 }

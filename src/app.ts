@@ -12,11 +12,12 @@
 
 import 'reflect-metadata';
 import express from 'express';
-import container from './inversify.config';
+import container from './inversify/inversify.config';
 import { InversifyExpressServer } from 'inversify-express-utils';
 
 import './app/controllers/user.controller';
 import './app/controllers/profiles.controller';
+import './app/controllers/actions.controller';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import * as swagger from 'swagger-express-ts';
