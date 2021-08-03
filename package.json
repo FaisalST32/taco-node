@@ -9,7 +9,7 @@
     "start:dev": "nodemon --exec node --loader ts-node/esm src/app.ts",
     "start:watch": "nodemon",
     "postinstall": "tsc",
-    "deploy": "git add . && git commit -m Heroku && git push heroku master",
+    "deploy": "git push heroku master",
     "prettier": "prettier --write \"src/**/*.ts\""
   },
   "author": "",

@@ -28,7 +28,9 @@ export class ActionsController implements interfaces.Controller {
         userId,
         false
       );
-      if (likeRegistered) res.status(200).send();
+      console.log('liking');
+      //TODO: Replace true with isMatch
+      if (likeRegistered) res.status(200).send(true);
       res.status(500).send();
     } catch (e) {
       res.status(500).send(e);
@@ -54,7 +56,9 @@ export class ActionsController implements interfaces.Controller {
         userId,
         true
       );
-      if (likeRegistered) res.status(200).send();
+      console.log('super liking');
+      //TODO: Replace true with isMatch
+      if (likeRegistered) res.status(200).send(true);
       res.status(500).send();
     } catch (e) {
       res.status(500).send(e);
