@@ -1,8 +1,8 @@
 import {
+  BaseHttpController,
   controller,
   httpGet,
   httpPost,
-  interfaces,
   request,
   response,
 } from 'inversify-express-utils';
@@ -11,13 +11,11 @@ import { TYPES } from '../../inversify/types';
 import { inject } from 'inversify';
 import { Request, Response } from 'express';
 import { Passion, Profile } from '../../typings/profile.types';
+import { authorize } from '../middlewares/auth.middleware';
 
 @controller('/profiles')
-export class ProfilesController implements interfaces.Controller {
-  private _profileService: ProfileService;
-  constructor(@inject(TYPES.ProfileService) profileService: ProfileService) {
-    this._profileService = profileService;
-  }
+export class ProfilesController extends BaseHttpController {
+  @inject(TYPES.ProfileService) private _profileService: ProfileService;
 
   @httpGet('/')
   public async getAllProfiles(
@@ -26,7 +24,7 @@ export class ProfilesController implements interfaces.Controller {
   ) {
     const allProfiles = await this._profileService.getAllProfiles();
     console.log(allProfiles);
-    res.status(200).send(allProfiles);
+    return this.ok(allProfiles);
   }
 
   @httpPost('/')
@@ -35,12 +33,12 @@ export class ProfilesController implements interfaces.Controller {
     @response() res: Response
   ) {
     const savedProfile = await this._profileService.saveProfile(req.body);
-    res.status(200).send(savedProfile);
+    return this.ok(savedProfile);
   }
 
-  @httpGet('/passions')
+  @httpGet('/passions', authorize('admin'))
   public async getPassions(@request() req: Request, @response() res: Response) {
     const passions: Passion[] = await this._profileService.getAllPassions();
-    res.status(200).send(passions);
+    return this.ok(passions);
   }
 }

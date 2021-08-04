@@ -23,6 +23,10 @@ import mongoose from 'mongoose';
 import * as swagger from 'swagger-express-ts';
 import { seedData } from './app/data/seed/seeder';
 import dotenv from 'dotenv';
+import { logWithTimer } from './app/utils/logging.utils';
+import { JwtAuthProvider } from './app/providers/auth.provider';
+
+logWithTimer('starting application');
 
 dotenv.config();
 
@@ -32,7 +36,8 @@ let server = new InversifyExpressServer(
   container,
   null,
   { rootPath: '/api' },
-  app
+  app,
+  JwtAuthProvider
 );
 
 server.setConfig((app) => {
@@ -56,6 +61,7 @@ server.setConfig((app) => {
       },
     })
   );
+  logWithTimer('adding swagger config');
   app.use('/api-docs/swagger', express.static('swagger'));
   app.use(
     '/api-docs/swagger/assets',
@@ -66,14 +72,19 @@ server.setConfig((app) => {
 let appConfigured = server.build();
 let dbConnection = process.env.MONGO_CONNECTION_STRING;
 // let dbConnection = "mongodb://localhost:27017/taco";
+logWithTimer('initializing mongoose');
 mongoose
   .connect(dbConnection, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
-  .then(() => seedData())
   .then(() => {
-    let serve: any = appConfigured.listen(process.env.PORT || 5000, () =>
-      console.log(`App running on ${serve.address().port}`)
-    );
+    logWithTimer('seeding data');
+    return seedData();
+  })
+  .then(() => {
+    logWithTimer('starting server');
+    let serve: any = appConfigured.listen(process.env.PORT || 5000, () => {
+      logWithTimer(`App running on ${serve.address().port}`);
+    });
   });
