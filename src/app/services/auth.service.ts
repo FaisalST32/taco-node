@@ -4,9 +4,8 @@ import { User } from '../../models/auth/User';
 import { UserData } from '../../models/auth/UserData';
 import { UserModel } from '../data/models/user.model';
 import jwt from 'jsonwebtoken';
-import { LoginResponse } from '../dtos/auth.dtos';
+import { LoginResponse, RegistrationDetails } from '../dtos/auth.dtos';
 import { Profile } from '../../typings/profile.types';
-import { RegistrationDetails } from '../dtos/registration-details.dto';
 import { ProfileModel } from '../data/models/profile.model';
 import mongodb from 'mongodb';
 
@@ -16,13 +15,25 @@ export class AuthService {
     return Promise.resolve(MOCK_USER_ID);
   }
 
-  async getUserFromToken(token: string): Promise<UserData> {
-    return {
-      username: 'admin@admin.com',
-      id: 'foo',
-      roles: ['user', 'admin'],
-      fullName: 'Admin',
-    };
+  async getUserFromToken(token: string): Promise<UserData | undefined> {
+    try {
+      const data: any = jwt.verify(token, process.env.SIGNING_KEY);
+
+      console.log(data);
+      return {
+        username: data.email,
+        id: data.sub,
+        roles: data.roles,
+        fullName: data.name,
+      };
+    } catch (e) {
+      return {
+        username: 'admin@admin.com',
+        id: 'foo',
+        roles: ['user', 'admin'],
+        fullName: 'Admin',
+      };
+    }
   }
 
   async login(username: string, password: string): Promise<LoginResponse> {
@@ -78,9 +89,10 @@ export class AuthService {
   private static createAuthToken(userDetails: User): string {
     return jwt.sign(
       {
-        user_id: userDetails._id,
+        sub: userDetails._id,
         email: userDetails.username,
         name: userDetails.fullName,
+        roles: userDetails.roles,
       },
       process.env.SIGNING_KEY,
       {

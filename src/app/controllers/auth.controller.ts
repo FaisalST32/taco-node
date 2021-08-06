@@ -8,9 +8,11 @@ import { inject } from 'inversify';
 import { TYPES } from '../../inversify/types';
 import { ApiPath } from 'swagger-express-ts';
 import { AuthService } from '../services/auth.service';
-import { LoginRequest } from '../dtos/login-request.dto';
-import { LoginResponse } from '../dtos/auth.dtos';
-import { RegistrationDetails } from '../dtos/registration-details.dto';
+import {
+  LoginRequest,
+  LoginResponse,
+  RegistrationDetails,
+} from '../dtos/auth.dtos';
 import { Profile } from '../../typings/profile.types';
 
 @ApiPath({

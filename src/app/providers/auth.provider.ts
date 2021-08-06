@@ -17,11 +17,9 @@ export class JwtAuthProvider implements interfaces.AuthProvider {
     res: express.Response,
     next: express.NextFunction
   ): Promise<interfaces.Principal> {
-    // logWithTimer('populating user context');
-    // const authHeader = req.headers['authorization'];
-    // if (!authHeader) return;
-    // const token = authHeader.split(' ')[1];
-    const token = 'faketoken';
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) return;
+    const token = authHeader.split(' ')[1];
     const user = await this._authService.getUserFromToken(
       Array.isArray(token) ? token[0] : token
     );

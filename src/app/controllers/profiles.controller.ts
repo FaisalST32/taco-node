@@ -36,8 +36,9 @@ export class ProfilesController extends BaseHttpController {
     return this.ok(savedProfile);
   }
 
-  @httpGet('/passions', authorize('admin'))
+  @httpGet('/passions', authorize('user'))
   public async getPassions(@request() req: Request, @response() res: Response) {
+    console.log(this.httpContext.user);
     const passions: Passion[] = await this._profileService.getAllPassions();
     return this.ok(passions);
   }
